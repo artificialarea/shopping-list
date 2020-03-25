@@ -18,9 +18,10 @@ function createItem() {
     const userItem = $(event.currentTarget).find('#shopping-list-entry');
     // generate an html list item
     // instead of .append'ing item at the end of the <ul> element
-    // gonna .preprend item to the beginning
-    // as I prefer the UX ;P
-    $('ul').prepend(`<li><span class="shopping-item">${userItem.val()}</span><div class="shopping-item-controls"><button class="shopping-item-toggle"><span class="button-label">check</span></button><button class="shopping-item-delete"><span class="button-label">delete</span></button></div></li>`);
+    // gonna .preprend item to the beginning, b/c I prefer the UX ;P
+    if (userItem.val() !== '') {
+      $('ul').prepend(`<li><span class="shopping-item">${userItem.val()}</span><div class="shopping-item-controls"><button class="shopping-item-toggle"><span class="button-label">check</span></button><button class="shopping-item-delete"><span class="button-label">delete</span></button></div></li>`);
+    }
     // then, clear input
     userItem.val('');
   });
