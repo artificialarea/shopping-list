@@ -22,10 +22,13 @@ function createItem() {
     if (userItem.val() !== '') {
       $('ul').prepend(`<li><span class="shopping-item">${userItem.val()}</span><div class="shopping-item-controls"><button class="shopping-item-toggle"><span class="button-label">check</span></button><button class="shopping-item-delete"><span class="button-label">delete</span></button></div></li>`);
     }
-    // then, clear input
+    // then, clear input for user
     userItem.val('');
   });
 }
+
+// NOTE: Event Delegation approach for both toggleCheck() and deleteItem()
+// to ensure future post-DOM loading createItem()s will have functionality, too.
 
 function toggleCheck() {
   $('ul.shopping-list').on('click', 'button.shopping-item-toggle', event => {
