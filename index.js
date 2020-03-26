@@ -10,8 +10,6 @@ $(function() {
 
 function createItem() {
   $('#js-shopping-list-form').submit(event => {
-    // console.log(event.type, event.currentTarget); // test
-
     // to prevent the default form submission behaviour
     event.preventDefault();
     // capture what was submitted
@@ -20,10 +18,12 @@ function createItem() {
     // instead of .append'ing item at the end of the <ul> element
     // gonna .preprend item to the beginning, b/c I prefer the UX ;P
     if (userItem.val() !== '') {
-      $('ul').prepend(`<li><span class="shopping-item">${userItem.val()}</span><div class="shopping-item-controls"><button class="shopping-item-toggle"><span class="button-label">check</span></button><button class="shopping-item-delete"><span class="button-label">delete</span></button></div></li>`);
+      $('.shopping-list').prepend(`<li><span class="shopping-item">${userItem.val()}</span><div class="shopping-item-controls"><button class="shopping-item-toggle"><span class="button-label">check</span></button><button class="shopping-item-delete"><span class="button-label">delete</span></button></div></li>`);
     }
     // then, clear input for user
     userItem.val('');
+
+    // console.log(event.type, event.currentTarget); // test
   });
 }
 
@@ -31,7 +31,7 @@ function createItem() {
 // to ensure future post-DOM loading createItem()s will have functionality, too.
 
 function toggleCheck() {
-  $('ul.shopping-list').on('click', 'button.shopping-item-toggle', event => {
+  $('.shopping-list').on('click', 'button.shopping-item-toggle', event => {
     // !! fuck yeah, traversing the tree !! =D 
     const targetItem = $(event.currentTarget).closest('li').children('span'); 
     targetItem.toggleClass('shopping-item__checked');
@@ -39,7 +39,7 @@ function toggleCheck() {
 }
 
 function deleteItem() {
-  $('ul.shopping-list').on('click', 'button.shopping-item-delete', event => {
+  $('.shopping-list').on('click', 'button.shopping-item-delete', event => {
     const targetItem = $(event.currentTarget).closest('li'); 
     targetItem.remove();
   });
