@@ -6,8 +6,8 @@
 // $(document).ready
 $(function() {
   createItem();
-  toggleCheck();
   deleteItem();
+  toggleCheck();
 });
 
 
