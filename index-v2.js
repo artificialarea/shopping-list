@@ -43,7 +43,7 @@ function deleteItem() {
 
 function toggleCheck() {
   $('.shopping-list').on('click', '.shopping-item-toggle', function(event) {
-    $(this).closest('li').children('span').toggleClass('shopping-item__checked');
+    $(this).closest('li').find('.shopping-item').toggleClass('shopping-item__checked');
   });
 }
 
