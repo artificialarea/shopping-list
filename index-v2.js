@@ -16,16 +16,15 @@ function createItem() {
     // to prevent the default form submission behaviour
     event.preventDefault();
     // capture what was submitted
-    const userItem = $(event.currentTarget).find('#shopping-list-entry');
+    const userItem = $('#shopping-list-entry').val();
+    // clear input for user
+    $('#shopping-list-entry').val('')
     // generate an html list item
     // instead of .append'ing item at the end of the <ul> element
     // gonna .preprend item to the beginning, b/c I prefer the UX ;P
-    if (userItem.val() !== '') {
-      $('.shopping-list').prepend(`<li><span class="shopping-item">${userItem.val()}</span><div class="shopping-item-controls"><button class="shopping-item-toggle"><span class="button-label">check</span></button><button class="shopping-item-delete"><span class="button-label">delete</span></button></div></li>`);
+    if (userItem !== '') {
+      $('.shopping-list').prepend(`<li> <span class="shopping-item">${userItem}</span> <div class="shopping-item-controls"> <button class="shopping-item-toggle"> <span class="button-label">check</span> </button> <button class="shopping-item-delete"> <span class="button-label">delete</span></button> </div> </li>`);
     }
-    // then, clear input for user
-    userItem.val('');
-
     // console.log(event.type, event.currentTarget); // test
   });
 }
@@ -33,20 +32,22 @@ function createItem() {
 // NOTE: Event Delegation approach for both toggleCheck() and deleteItem()
 // to ensure future post-DOM loading createItem()s will have functionality, too.
 
-function toggleCheck() {
-  $('.shopping-list').on('click', 'button.shopping-item-toggle', event => {
-    // !! fuck yeah, traversing the tree !! =D 
-    const targetItem = $(event.currentTarget).closest('li').children('span'); 
-    targetItem.toggleClass('shopping-item__checked');
+function deleteItem() {
+  $('.shopping-list').on('click', '.shopping-item-delete', function(event) {
+    $(this).closest('li').remove();
+    // ^^^^ this = event.currentTarget 
+    // but no fat arrow function syntax allowed
+    // note: ESLint is in error when it 'event' is never used because it fails to recognise `this` as `event.currentTarget`
   });
 }
 
-function deleteItem() {
-  $('.shopping-list').on('click', 'button.shopping-item-delete', event => {
-    const targetItem = $(event.currentTarget).closest('li'); 
-    targetItem.remove();
+function toggleCheck() {
+  $('.shopping-list').on('click', '.shopping-item-toggle', function(event) {
+    $(this).closest('li').children('span').toggleClass('shopping-item__checked');
   });
 }
+
+
 
 
 // PSEUDOCODE INSTRUCTIONS /////////////////////////////////////////
